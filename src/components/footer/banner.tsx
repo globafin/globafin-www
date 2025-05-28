@@ -3,10 +3,10 @@ import WidthConstraint from "../ui/width-constraint";
 
 const Banner = () => {
   return (
-    <section className="px-10">
+    <section className="px-4 md:px-10">
       <div className="bg-tertiary rounded-t-3xl">
         <WidthConstraint className="text-center py-20 space-y-10">
-          <h2 className="text-[100px] font-bold text-white leading-[1em]">
+          <h2 className="text-3xl lg:text-[70px] xl:text-[100px] font-bold text-white leading-[1em]">
             Become a part of the <br /> Globafin Family
           </h2>
           <div className="flex justify-center gap-4">

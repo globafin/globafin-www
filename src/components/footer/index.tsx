@@ -35,7 +35,7 @@ const Footer = () => {
       </div>
       <section className="bg-secondary">
         <WidthConstraint className="pt-20 max-w-[1500px] pb-10 space-y-16">
-          <div className="py-10 flex flex-col md:flex-row md:justify-between md:items-start gap-10">
+          <div className="py-10 flex flex-col lg:flex-row md:justify-between md:items-start gap-10">
             <div className="flex-1 flex flex-col gap-8 min-w-[250px]">
               <Link href="/">
                 <Image
@@ -46,21 +46,23 @@ const Footer = () => {
                   className="mb-4"
                 />
               </Link>
-              <div className="flex items-center gap-4 mt-2">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mt-2">
                 <span className="font-medium text-lg">Follow Us:</span>
-                {socialLinks.map((s, i) => (
-                  <Link
-                    key={i}
-                    href={s.href}
-                    className="w-14 h-14 flex items-center justify-center rounded-full border border-[#22325a] text-tertiary hover:bg-[#22325a] transition-colors"
-                    aria-label="Social link"
-                  >
-                    {s.icon}
-                  </Link>
-                ))}
+                <div className="flex items-center gap-4">
+                  {socialLinks.map((s, i) => (
+                    <Link
+                      key={i}
+                      href={s.href}
+                      className="w-14 h-14 flex items-center justify-center rounded-full border border-[#22325a] text-tertiary hover:bg-[#22325a] transition-colors"
+                      aria-label="Social link"
+                    >
+                      {s.icon}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
-            <div className="flex-1 flex flex-col items-end min-w-[250px]">
+            <div className="flex-1 flex flex-col lg:items-end min-w-[250px]">
               <div className="text-left">
                 <div className="mb-2 text-gray-200">Get in touch</div>
                 <div className="text-tertiary mb-1">Mon - Fri 8.30AM - 16.00PM</div>
@@ -77,7 +79,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex flex-col items-center gap-10">
-            <div className="flex flex-wrap justify-center gap-16 text-gray-300 text-sm">
+            <div className="flex flex-wrap justify-center gap-5 lg:gap-16 text-gray-300 text-sm">
               {navLinks.map((link, i) => (
                 <Link
                   key={i}

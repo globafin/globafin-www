@@ -60,9 +60,9 @@ const Testimonials = () => {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="flex flex-col md:flex-row w-full"
+              className="flex flex-col lg:flex-row w-full"
             >
-              <div className="md:w-1/2 w-full max-h-[450px] aspect-square relative">
+              <div className="lg:w-1/2 w-full max-h-[450px] aspect-square relative">
                 <Image
                   src={testimonial.image}
                   alt={testimonial.name}
@@ -71,7 +71,7 @@ const Testimonials = () => {
                   priority
                 />
               </div>
-              <div className="md:w-1/2 w-full bg-blue-900 text-white flex flex-col justify-between p-8 relative">
+              <div className="lg:w-1/2 w-full bg-blue-900 text-white flex flex-col justify-between p-8 relative">
                 <FaQuoteLeft className="text-green-400 text-3xl mb-4" />
                 <p className="text-lg md:text-2xl font-[300] leading-relaxed mb-8">
                   {testimonial.quote}

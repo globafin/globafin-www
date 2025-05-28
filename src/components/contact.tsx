@@ -12,10 +12,10 @@ const Contact = () => {
 
   return (
     <section className="py-16 lg:py-32 bg-white p-2">
-      <div className=" bg-[url('/assets/hero.jpg')] min-h-[500px] p-20 rounded-xl">
-        <WidthConstraint className="flex justify-end items-center">
+      <div className=" bg-[url('/assets/hero.jpg')] min-h-[500px] py-20 rounded-xl">
+        <WidthConstraint className="flex justify-center lg:justify-end items-center">
           <Card className="w-max p-4 py-12 rounded-b-none">
-            <CardContent>
+            <CardContent className="px-2 md:px-4">
               <form className="w-full max-w-sm bg-white space-y-5 ">
                 <div className="space-y-5">
                   <h2 className="text-2xl font-bold text-gray-900">Contact us today!</h2>

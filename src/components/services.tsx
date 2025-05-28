@@ -53,10 +53,10 @@ const Services = () => {
     <section className="py-20 lg:py-32">
       <WidthConstraint className="space-y-10">
         <h2 className="text-3xl font-bold text-center text-gray-900">Our Services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {services.map((service, idx) => (
             <Card key={idx} className="border-none shadow-none">
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 px-0 lg:px-6">
                 <div className="bg-primary w-16 h-16 text-primary-foreground rounded-full p-2 flex items-center justify-center">
                   {service.icon}
                 </div>
