@@ -24,9 +24,9 @@ const socialLinks = [
 
 const navLinks = [
   { label: "Help", href: "#contact" },
-  { label: "Terms and Conditions", href: "#" },
+  { label: "Terms and Conditions", href: "/terms" },
   { label: "FAQ", href: "#faq" },
-  { label: "Privacy Policy", href: "#" },
+  { label: "Privacy Policy", href: "/privacy" },
 ];
 
 const Footer = () => {

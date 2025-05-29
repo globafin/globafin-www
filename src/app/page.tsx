@@ -5,6 +5,15 @@ import Hero from "@/components/hero";
 import Services from "@/components/services";
 import Stats from "@/components/stats";
 import Testimonials from "@/components/testimonials";
+import { siteConfig } from "@/lib/config/metadata";
+import { Metadata } from "next";
+
+export function generateMetadata(): Metadata {
+  return {
+    title: siteConfig.name,
+    description: siteConfig.description,
+  };
+}
 
 export default function Home() {
   return (
