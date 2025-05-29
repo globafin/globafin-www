@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaPinterestP,
-  FaTwitter,
+    FaFacebookF,
+    FaInstagram,
+    FaLinkedinIn,
+    FaPinterestP,
+    FaTwitter,
 } from "react-icons/fa";
 import WidthConstraint from "../ui/width-constraint";
 import Banner from "./banner";
@@ -34,7 +34,7 @@ const Footer = () => {
         <Banner />
       </div>
       <section className="bg-secondary">
-        <WidthConstraint className="pt-20 max-w-[1500px] pb-10 space-y-16">
+        <WidthConstraint className="pt-20 pb-10 space-y-16">
           <div className="py-10 flex flex-col lg:flex-row md:justify-between md:items-start gap-10">
             <div className="flex-1 flex flex-col gap-8 min-w-[250px]">
               <Link href="/">

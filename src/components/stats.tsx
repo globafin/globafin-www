@@ -3,7 +3,7 @@ import WidthConstraint from "./ui/width-constraint";
 const Stats = () => {
   return (
     <section className="py-20">
-      <WidthConstraint className="grid grid-cols-1 text-center md:text-left md:grid-cols-3 gap-20">
+      <WidthConstraint className="grid grid-cols-1 text-center lg:text-left lg:grid-cols-3 gap-5 md:gap-10 xl:gap-20">
         <div className="space-y-5">
           <h3 className="text-2xl font-[700]">Years of Operations</h3>
           <p className="text-7xl font-bold text-primary pb-5">14+</p>

@@ -7,16 +7,19 @@ import HeroBanner from "./banner";
 const Hero = () => {
   return (
     <>
-      <section className="py-20 lg:h-[calc(100vh-80px)] mt-[80px] bg-[url('/assets/hero.jpg')] flex justify-center items-center bg-cover bg-center relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/40"></div>
+      <section
+        id="home"
+        className="py-20 lg:h-[calc(100vh-80px)] mt-[80px] scroll-mt-20 bg-[url('/assets/hero.svg')] flex justify-center items-center bg-cover bg-center relative"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/20"></div>
         <div className="relative z-10 w-full">
-          <WidthConstraint className="grid grid-cols-1 w-full lg:grid-cols-2 gap-10 max-w-[1500px]">
-            <div className="space-y-10 text-white pb-20 lg:pb-32">
-              <h1 className="text-6xl font-bold">
-                Finance That Moves <br /> You Forward
+          <WidthConstraint className="grid grid-cols-1 w-full lg:grid-cols-2 gap-10 md:pt-20">
+            <div className="space-y-5 sm:space-y-10 text-white pb-10 md:pb-20 lg:pb-32">
+              <h1 className="text-5xl lg:text-6xl xl:text-[4rem] lg:text-nowrap font-bold">
+                Finance That Moves <br className="hidden sm:block" /> You Forward
               </h1>
               <p className="text-white max-w-lg">
-                We hold your money with established financial institutions, so it's
+                We hold your money with established financial institutions, so it&apos;s
                 separate from our own accounts and in our normal.
               </p>
               <div className="flex gap-4">
@@ -50,10 +53,10 @@ const Hero = () => {
                         width={40}
                         height={40}
                       />
-                      <h2 className="text-3xl font-black">34B</h2>
+                      <h2 className="text-3xl font-black">433+</h2>
                     </div>
                     <hr className="border-[#ffffff20]" />
-                    <p className="text-white text-lg">Money Managed</p>
+                    <p className="text-white text-lg">Higher Transactions</p>
                   </CardContent>
                 </Card>
               </div>

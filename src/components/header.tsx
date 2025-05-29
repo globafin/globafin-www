@@ -1,5 +1,6 @@
 "use client";
 
+import { ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
@@ -10,29 +11,10 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { Button } from "./ui/button";
 import WidthConstraint from "./ui/width-constraint";
 
-const routes = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Services",
-    href: "/services",
-  },
-  {
-    label: "About",
-    href: "/about",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
-];
-
 const MobileMenu = ({ check }: { check: boolean; isScrolled: boolean }) => {
   return (
     <div className="rounded-b-3xl bg-background">
-      <WidthConstraint className={cn(`${check ? "pb-5" : ""} w-full`)}>
+      <WidthConstraint className="w-full">
         <AnimatePresence>
           {check && (
             <motion.nav
@@ -43,7 +25,7 @@ const MobileMenu = ({ check }: { check: boolean; isScrolled: boolean }) => {
               className="lg:hidden"
             >
               <ul className="flex flex-col gap-4 py-4">
-                {routes.map((route) => {
+                {ROUTES.map((route) => {
                   return (
                     <li
                       key={route.label}
@@ -73,8 +55,8 @@ const MobileMenu = ({ check }: { check: boolean; isScrolled: boolean }) => {
 const NavBar = () => {
   return (
     <nav className="hidden lg:flex">
-      <ul className="flex gap-10 uppercase font-semibold text-foreground">
-        {routes.map((route) => {
+      <ul className="flex gap-10 capitalize font-[500] text-[#005643]">
+        {ROUTES.map((route) => {
           return (
             <li key={route.href} className="flex items-center gap-1">
               <Link
@@ -134,7 +116,7 @@ const Header = () => {
         "border-b border-border bg-background lg:h-[80px]"
       )}
     >
-      <WidthConstraint className="flex gap-10 justify-between items-center max-w-[1500px] h-full py-2">
+      <WidthConstraint className="flex gap-10 justify-between items-center h-full py-2">
         <Link href="/">
           <Image
             src="/assets/logo.svg"
@@ -146,7 +128,7 @@ const Header = () => {
         </Link>
         <NavBar />
         <div className="flex items-center justify-center gap-4">
-          <Button>Create Account</Button>
+          <Button className="bg-tertiary text-white rounded-full">Create Account</Button>
           <HiOutlineMenuAlt3
             size={30}
             onClick={() => setCheck(!check)}
