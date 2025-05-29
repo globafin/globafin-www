@@ -10,10 +10,6 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Globafin",
-  description: "Globafin",
-};
 
 export default function RootLayout({
   children,
