@@ -58,8 +58,17 @@ async function sendMultipleEmails(
 
 // Helper function to read and process email template
 function processTemplate(templatePath: string, data: Record<string, string>) {
-  const template = fs.readFileSync(path.join(process.cwd(), templatePath), "utf-8");
-  return template.replace(/\${data\.(\w+)}/g, (_, key) => data[key] || "");
+  try {
+    // Use path.join with __dirname to ensure correct path resolution
+    const template = fs.readFileSync(
+      path.join(process.cwd(), "public", path.basename(templatePath)),
+      "utf-8"
+    );
+    return template.replace(/\${data\.(\w+)}/g, (_, key) => data[key] || "");
+  } catch (error) {
+    console.error(`Error reading template ${templatePath}:`, error);
+    throw new Error(`Failed to read email template: ${templatePath}`);
+  }
 }
 
 // Helper function to validate required fields
