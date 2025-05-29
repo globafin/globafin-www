@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import WidthConstraint from "../ui/width-constraint";
@@ -23,8 +24,12 @@ const Hero = () => {
                 separate from our own accounts and in our normal.
               </p>
               <div className="flex gap-4">
-                <Button>Get Started</Button>
-                <Button variant="outline">About Us</Button>
+                <Button asChild>
+                  <Link href="/create-account">Get Started</Link>
+                </Button>
+                <Button variant="outline" asChild>
+                  <Link href="#about">About Us</Link>
+                </Button>
               </div>
             </div>
             <div className="flex justify-end items-end">

@@ -128,7 +128,9 @@ const Header = () => {
         </Link>
         <NavBar />
         <div className="flex items-center justify-center gap-4">
-          <Button className="bg-tertiary text-white rounded-full">Create Account</Button>
+          <Button className="bg-tertiary text-white rounded-full">
+            <Link href="/create-account">Create Account</Link>
+          </Button>
           <HiOutlineMenuAlt3
             size={30}
             onClick={() => setCheck(!check)}

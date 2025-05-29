@@ -1,11 +1,15 @@
+import {
+  GLOBAFIN_MICROFINANCE_EMAIL,
+  GLOBAFIN_MICROFINANCE_PHONE,
+} from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import {
-    FaFacebookF,
-    FaInstagram,
-    FaLinkedinIn,
-    FaPinterestP,
-    FaTwitter,
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaPinterestP,
+  FaTwitter,
 } from "react-icons/fa";
 import WidthConstraint from "../ui/width-constraint";
 import Banner from "./banner";
@@ -19,12 +23,10 @@ const socialLinks = [
 ];
 
 const navLinks = [
-  { label: "Help", href: "#" },
+  { label: "Help", href: "#contact" },
   { label: "Terms and Conditions", href: "#" },
-  { label: "FAQ", href: "#" },
-  { label: "Our Pricing", href: "#" },
-  { label: "All Country", href: "#" },
-  { label: "Refer Friends", href: "#" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Privacy Policy", href: "#" },
 ];
 
 const Footer = () => {
@@ -67,13 +69,17 @@ const Footer = () => {
                 <div className="mb-2 text-gray-200">Get in touch</div>
                 <div className="text-tertiary mb-1">Mon - Fri 8.30AM - 16.00PM</div>
                 <div className="text-tertiary mb-1">
-                  info@globafinmicrofinance.com.com
+                  <Link href={`mailto:${GLOBAFIN_MICROFINANCE_EMAIL}`}>
+                    {GLOBAFIN_MICROFINANCE_EMAIL}
+                  </Link>
                 </div>
                 <div className="text-tertiary mb-1">
                   Agona Swedru Akim Oda Road, Ghana
                 </div>
                 <div className="text-2xl md:text-3xl font-bold text-tertiary mt-2">
-                  +233 57 769 9963
+                  <Link href={`tel:${GLOBAFIN_MICROFINANCE_PHONE}`}>
+                    {GLOBAFIN_MICROFINANCE_PHONE}
+                  </Link>
                 </div>
               </div>
             </div>
@@ -91,7 +97,7 @@ const Footer = () => {
               ))}
             </div>
             <div className="text-center text-gray-400">
-              © Globafin Microfinance Ld. 2025
+              © Globafin Microfinance Ltd. {new Date().getFullYear()}
             </div>
           </div>
         </WidthConstraint>

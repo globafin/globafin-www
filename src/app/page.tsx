@@ -1,5 +1,6 @@
 import Contact from "@/components/contact";
 import CoreValues from "@/components/core-values";
+import FAQs from "@/components/faqs";
 import Hero from "@/components/hero";
 import Services from "@/components/services";
 import Stats from "@/components/stats";
@@ -14,6 +15,7 @@ export default function Home() {
       <Testimonials />
       <Stats />
       <Contact />
+      <FAQs />
     </main>
   );
 }

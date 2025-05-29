@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f3f3f3;
+        font-family: Arial, sans-serif;
+      }
+      .wrapper {
+        width: 100%;
+        table-layout: fixed;
+        background-color: #f3f3f3;
+        padding: 0;
+        margin: 0;
+      }
+      .email-container {
+        max-width: 480px;
+        margin: 0 auto;
+        background-color: #ffffff;
+      }
+      .header {
+        background-color: #384fa0;
+        padding: 20px;
+        text-align: center;
+      }
+      .header img {
+        max-width: 200px;
+        filter: brightness(0) invert(1);
+      }
+      .title {
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .content {
+        padding: 20px;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .content ul {
+        padding-left: 20px;
+        margin: 12px 0;
+      }
+      .content li {
+        margin-bottom: 8px;
+      }
+      .button {
+        text-align: center;
+        padding: 20px;
+      }
+      .button a {
+        background-color: #384fa0;
+        color: #ffffff;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+      }
+      .footer {
+        background-color: #384fa0;
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+        margin-top: 20px;
+        font-size: 12px;
+      }
+      .socials img {
+        width: 24px;
+        margin: 0 6px;
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="email-container">
+        <div class="header">
+          <img
+            src="https://www.globafinmicrofinance.com/assets/logo.png"
+            alt="Globafin Logo"
+            width="80"
+            height="80"
+          />
+        </div>
+
+        <div class="content">
+          <p>Dear ${data.name},</p>
+
+          <p>
+            Thank you for choosing Globafin Microfinance for your financial needs. We have
+            received your account creation request and are currently reviewing your
+            application.
+          </p>
+
+          <p>
+            Our team will carefully assess your application and get back to you within 1-2
+            business days. We're committed to providing you with the best financial
+            solutions tailored to your needs.
+          </p>
+
+          <p>While we process your application, you can:</p>
+
+          <ul>
+            <li>Learn more about our financial products and services</li>
+            <li>Explore our competitive interest rates</li>
+            <li>Check out our flexible loan terms</li>
+            <li>Read about our savings account benefits</li>
+          </ul>
+
+          <p>
+            If you have any questions in the meantime, please don't hesitate to contact
+            our customer support team.
+          </p>
+
+          <p>
+            Best regards,<br />
+            The Globafin Team
+          </p>
+        </div>
+
+        <div class="button">
+          <a
+            href="https://www.globafinmicrofinance.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Visit Our Website</a
+          >
+        </div>
+
+        <div class="footer">
+          <p>&copy;2025 Globafin Microfinance</p>
+          <p>Finance That Moves You Forward</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

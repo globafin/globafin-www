@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "../ui/button";
 import WidthConstraint from "../ui/width-constraint";
 
@@ -9,8 +10,12 @@ const Banner = () => {
           Become a part of the <br /> Globafin Family
         </h2>
         <div className="flex justify-center gap-4">
-          <Button>Give us a call</Button>
-          <Button variant="outline">Create an account</Button>
+          <Button asChild>
+            <Link href="tel:+2348130000000">Give us a call</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/create-account">Create an account</Link>
+          </Button>
         </div>
       </WidthConstraint>
     </section>
