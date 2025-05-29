@@ -4,7 +4,6 @@ import path from "path";
 
 import nodemailer from "nodemailer";
 
-// Create reusable transporter
 const transporter = nodemailer.createTransport({
   host: "smtp.zoho.com",
   port: 465,
@@ -16,7 +15,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Base email sending function
-export async function sendEmail(options: {
+async function sendEmail(options: {
   to: string;
   subject: string;
   html: string;
@@ -40,7 +39,7 @@ export async function sendEmail(options: {
 }
 
 // Helper function to send multiple emails
-export async function sendMultipleEmails(
+async function sendMultipleEmails(
   emailConfigs: Array<{
     to: string;
     subject: string;
@@ -64,7 +63,7 @@ function processTemplate(templatePath: string, data: Record<string, string>) {
 }
 
 // Helper function to validate required fields
-function validateData(data: Record<string, any>, requiredFields: string[]) {
+function validateData(data: Record<string, unknown>, requiredFields: string[]) {
   const missingFields = requiredFields.filter((field) => !data[field]);
   if (missingFields.length > 0) {
     throw new Error(`Missing required fields: ${missingFields.join(", ")}`);
@@ -76,7 +75,12 @@ export async function POST(req: Request) {
   const { type } = data;
 
   try {
-    let emailConfigs = [];
+    const emailConfigs: Array<{
+      to: string;
+      subject: string;
+      html: string;
+      from?: string;
+    }> = [];
 
     switch (type) {
       case "contact":
@@ -102,8 +106,7 @@ export async function POST(req: Request) {
         break;
 
       case "account":
-        // Validate account creation data
-        validateData(data, ["name", "email"]);
+        validateData(data, ["name", "email", "phone", "address", "dob"]);
 
         // Admin notification for new account
         emailConfigs.push({

@@ -77,6 +77,7 @@ const CreateAccountPage = () => {
         body: JSON.stringify({
           type: "account",
           name: `${formData.firstName} ${formData.lastName}`,
+          phone: formData.phone,
           email: formData.email,
           dob: formData.dateOfBirth,
           address: formData.address,
