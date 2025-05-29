@@ -58,7 +58,10 @@ const Contact = () => {
         },
         body: JSON.stringify({
           type: "contact",
-          ...formData,
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
         }),
       });
 
@@ -74,7 +77,9 @@ const Contact = () => {
         message: "",
       });
       setAccepted(false);
-      toast.success("Message sent successfully! We'll get back to you soon.");
+      toast.success(
+        "Message sent successfully! We'll get back to you within 24-48 business hours."
+      );
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Failed to send message. Please try again later.");
