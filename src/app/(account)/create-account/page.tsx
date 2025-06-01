@@ -1,14 +1,23 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import WidthConstraint from "@/components/ui/width-constraint";
 import { db } from "@/lib/config/firebase";
+import { GLOBAFIN_MICROFINANCE_PHONE } from "@/lib/constants";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { useState } from "react";
 import { toast } from "sonner";
 
 interface AccountFormData {
   firstName: string;
+  middleName: string;
   lastName: string;
   email: string;
   phone: string;
@@ -20,6 +29,7 @@ const CreateAccountPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<AccountFormData>({
     firstName: "",
+    middleName: "",
     lastName: "",
     email: "",
     phone: "",
@@ -91,6 +101,7 @@ const CreateAccountPage = () => {
       // Reset form after successful submission
       setFormData({
         firstName: "",
+        middleName: "",
         lastName: "",
         email: "",
         phone: "",
@@ -126,7 +137,7 @@ const CreateAccountPage = () => {
           onSubmit={handleSubmit}
           className="space-y-6 max-w-[600px] mx-auto py-10 md:py-20"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid gap-4">
             <div className="space-y-2">
               <label htmlFor="firstName" className="text-sm font-medium">
                 First Name <span className="text-red-500">*</span>
@@ -138,6 +149,21 @@ const CreateAccountPage = () => {
                 onChange={handleInputChange}
                 required
                 disabled={isSubmitting}
+                placeholder="John"
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="middleName" className="text-sm font-medium">
+                Middle Name
+              </label>
+              <Input
+                id="middleName"
+                name="middleName"
+                value={formData.middleName}
+                onChange={handleInputChange}
+                required
+                disabled={isSubmitting}
+                placeholder="Christian"
               />
             </div>
             <div className="space-y-2">
@@ -151,8 +177,58 @@ const CreateAccountPage = () => {
                 onChange={handleInputChange}
                 required
                 disabled={isSubmitting}
+                placeholder="Doe"
               />
             </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label htmlFor="phone" className="text-sm font-medium">
+                Phone Number <span className="text-red-500">*</span>
+              </label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={handleInputChange}
+                required
+                disabled={isSubmitting}
+                placeholder={GLOBAFIN_MICROFINANCE_PHONE}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="dateOfBirth" className="text-sm font-medium">
+                Date of Birth <span className="text-red-500">*</span>
+              </label>
+              <Input
+                id="dateOfBirth"
+                name="dateOfBirth"
+                type="date"
+                value={formData.dateOfBirth}
+                onChange={handleInputChange}
+                required
+                disabled={isSubmitting}
+                placeholder="DD/MM/YYYY"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="accountType" className="text-sm font-medium">
+              Account Type <span className="text-red-500">*</span>
+            </label>
+            <Select>
+              <SelectTrigger className="w-full bg-transparent dark:bg-transparent">
+                <SelectValue placeholder="Select Account Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="susu-fixed-term">Susu fixed term</SelectItem>
+                <SelectItem value="savings">Savings</SelectItem>
+                <SelectItem value="g-kidz">g Kidz</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
@@ -167,42 +243,13 @@ const CreateAccountPage = () => {
               onChange={handleInputChange}
               required
               disabled={isSubmitting}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="phone" className="text-sm font-medium">
-              Phone Number <span className="text-red-500">*</span>
-            </label>
-            <Input
-              id="phone"
-              name="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={handleInputChange}
-              required
-              disabled={isSubmitting}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="dateOfBirth" className="text-sm font-medium">
-              Date of Birth <span className="text-red-500">*</span>
-            </label>
-            <Input
-              id="dateOfBirth"
-              name="dateOfBirth"
-              type="date"
-              value={formData.dateOfBirth}
-              onChange={handleInputChange}
-              required
-              disabled={isSubmitting}
+              placeholder="johndoe@example.com"
             />
           </div>
 
           <div className="space-y-2">
             <label htmlFor="address" className="text-sm font-medium">
-              Address <span className="text-red-500">*</span>*
+              Address <span className="text-red-500">*</span>
             </label>
             <Input
               id="address"
@@ -211,6 +258,7 @@ const CreateAccountPage = () => {
               onChange={handleInputChange}
               required
               disabled={isSubmitting}
+              placeholder="Accra, Ghana"
             />
           </div>
 

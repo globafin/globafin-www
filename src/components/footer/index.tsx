@@ -4,22 +4,19 @@ import {
 } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaPinterestP,
-  FaTwitter,
-} from "react-icons/fa";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import WidthConstraint from "../ui/width-constraint";
 import Banner from "./banner";
 
 const socialLinks = [
-  { icon: <FaFacebookF />, href: "#" },
-  { icon: <FaTwitter />, href: "#" },
-  { icon: <FaInstagram />, href: "#" },
-  { icon: <FaLinkedinIn />, href: "#" },
-  { icon: <FaPinterestP />, href: "#" },
+  { icon: <FaFacebookF />, href: "https://www.facebook.com/share/1C1aFA2458/" },
+  {
+    icon: <FaInstagram />,
+    href: "https://www.instagram.com/globafin_microfinance?igsh=bDkxYXhqYzJ1cTAy",
+  },
+  // { icon: <FaTwitter />, href: "#" },
+  // { icon: <FaLinkedinIn />, href: "#" },
+  // { icon: <FaPinterestP />, href: "#" },
 ];
 
 const navLinks = [
@@ -55,6 +52,8 @@ const Footer = () => {
                     <Link
                       key={i}
                       href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-14 h-14 flex items-center justify-center rounded-full border border-[#22325a] text-tertiary hover:bg-[#22325a] transition-colors"
                       aria-label="Social link"
                     >

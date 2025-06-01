@@ -55,14 +55,14 @@ const MobileMenu = ({ check }: { check: boolean; isScrolled: boolean }) => {
 const NavBar = () => {
   return (
     <nav className="hidden lg:flex">
-      <ul className="flex gap-10 capitalize font-[500] text-[#005643]">
+      <ul className="flex gap-10 capitalize font-[500]">
         {ROUTES.map((route) => {
           return (
             <li key={route.href} className="flex items-center gap-1">
               <Link
                 href={route.href}
                 className={cn(
-                  "text-sm font-semibold transition-colors hover:text-muted-foreground"
+                  "text-sm font-semibold transition-colors text-primary hover:text-secondary"
                 )}
               >
                 {route.label}

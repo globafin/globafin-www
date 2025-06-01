@@ -21,19 +21,19 @@ export const SERVICES = [
     icon: "/assets/icons/personal-loan.svg", // Personal Loan
     title: "Personal Loan",
     description:
-      "This loan package is designed for salary workers. The amount granted depends on the debt servicing ratio of the customer. The DSR should not exceed 40% and the loan tenor is maximum of 24 months.. Employer undertaking is also required to ensure that deduction is made at source and paid to the institution in due time. The interest rate for this package is 5.5% monthly and acceptable Collateral includes employer undertaking, Credit Insurance, Post-dated cheques, etc.",
+      "This loan package is designed for salary workers. The amount granted depends on the debt servicing ratio of the customer. The DSR should not exceed 40% and the loan tenor is maximum of 24 months.. Employer undertaking is also required to ensure that deduction is made at source and paid to the institution in due time.",
   },
   {
     icon: "/assets/icons/clearing-loan.svg", // Clearing Loan
     title: "Clearing Loan",
     description:
-      "This loan package is designed for SMEs who regularly import and require facility to support their clearing charges. The loan tenor is 3 months maximum. The facility is granted to clients with active accounts with the institution and the interest rate is 5.5% per month. Acceptable collateral etc.includes imported item, Guarantor, Credit Insurance, Post-dated cheques.",
+      "This loan package is designed for SMEs who regularly import and require facility to support their clearing charges. The loan tenor is 3 months maximum. The facility is granted to clients with active accounts with the institution. Acceptable collateral etc.includes imported item, Guarantor, Credit Insurance, Post-dated cheques.",
   },
   {
     icon: "/assets/icons/commercial-loan.svg", // Commercial Loan
     title: "Commercial Loan",
     description:
-      "This loans package designed for Small and Medium Scale Enterprises (SMEs) who require working capital or fixed assets for their businesses. This is offered to client with active account operated for at least 3 months. The repayment tenor for the working capital loan is 12 months and the interest rate is 5.5% per month. Acceptable Collateral includes Vehicle, Guarantor, Insurance, Lien on savings and compulsory deposits, Post-dated cheques.",
+      "This loans package designed for Small and Medium Scale Enterprises (SMEs) who require working capital or fixed assets for their businesses. This is offered to client with active account operated for at least 3 months. The repayment tenor for the working capital loan is 12 months. Acceptable Collateral includes Vehicle, Guarantor, Insurance, Lien on savings and compulsory deposits, Post-dated cheques.",
   },
 ];
 
@@ -90,16 +90,16 @@ export const TESTIMONIALS = [
   {
     image: "/assets/testimonials/1.png", // Replace with your actual image path
     quote:
-      "I've used Globafin MicroFinance Limited for years! They are consistent and that's important to me. I own a small business and really appreciate the personal interest the team have taken in my success. Thanks so much!",
+      "I've used Globaiin MicroFinance Limited for years! They are consistent and that's important to me. I own a small business and really appreciate the personal interest the team have taken in my success. Thanks so much!",
     name: "Mr. Kofi Appiah",
     role: "Trader",
   },
   {
     image: "/assets/testimonials/2.jpg",
     quote:
-      "Globafin MicroFinance has been a game changer for my business. Their support and dedication are unmatched.",
-    name: "Mr. Kwame",
-    role: "Entrepreneur",
+      "My wife and I were looking to get a car loan because our family just got a little bigger! Globafin MicroFinance Limited made the process simple and straightforward. And their follow-up after our purchase? Now that's great customer service!",
+    name: "Mr. Anthony",
+    role: "Business Man",
   },
 ];
 

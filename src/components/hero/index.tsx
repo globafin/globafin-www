@@ -4,18 +4,19 @@ import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import WidthConstraint from "../ui/width-constraint";
 import HeroBanner from "./banner";
+import BackgroundSlider from "./background-slider";
 
 const Hero = () => {
   return (
     <>
       <section
         id="home"
-        className="py-20 lg:h-[calc(100vh-80px)] mt-[80px] scroll-mt-20 bg-[url('/assets/hero.svg')] flex justify-center items-center bg-cover bg-center relative"
+        className="py-20 lg:h-[calc(100vh-80px)] mt-[80px] scroll-mt-20 flex justify-center items-center relative"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/20"></div>
+        <BackgroundSlider />
         <div className="relative z-10 w-full">
-          <WidthConstraint className="grid grid-cols-1 w-full lg:grid-cols-2 gap-10 md:pt-20">
-            <div className="space-y-5 sm:space-y-10 text-white pb-10 md:pb-20 lg:pb-32">
+          <WidthConstraint className="grid grid-cols-1 w-full lg:grid-cols-2 gap-10">
+            <div className="space-y-5  sm:space-y-10 text-white">
               <h1 className="text-5xl lg:text-6xl xl:text-[4rem] lg:text-nowrap font-bold">
                 Finance That Moves <br className="hidden sm:block" /> You Forward
               </h1>
