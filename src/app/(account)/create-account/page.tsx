@@ -224,7 +224,8 @@ const CreateAccountPage = () => {
                 <SelectValue placeholder="Select Account Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="susu-fixed-term">Susu fixed term</SelectItem>
+                <SelectItem value="susu">Susu</SelectItem>
+                <SelectItem value="fixed-term">Susu Fixed Term</SelectItem>
                 <SelectItem value="savings">Savings</SelectItem>
                 <SelectItem value="g-kidz">g Kidz</SelectItem>
               </SelectContent>

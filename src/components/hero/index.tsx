@@ -3,8 +3,8 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import WidthConstraint from "../ui/width-constraint";
-import HeroBanner from "./banner";
 import BackgroundSlider from "./background-slider";
+import HeroBanner from "./banner";
 
 const Hero = () => {
   return (
@@ -44,10 +44,10 @@ const Hero = () => {
                         width={40}
                         height={40}
                       />
-                      <h2 className="text-3xl font-black">34B</h2>
+                      <h2 className="text-3xl font-black">11+</h2>
                     </div>
                     <hr className="border-[#ffffff20]" />
-                    <p className="text-white text-lg">Money Managed</p>
+                    <p className="text-white text-lg">years</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-transparent backdrop-blur-sm border-[#ffffff20] shadow-none rounded-b-none">
@@ -59,10 +59,10 @@ const Hero = () => {
                         width={40}
                         height={40}
                       />
-                      <h2 className="text-3xl font-black">433+</h2>
+                      <h2 className="text-3xl font-black">5000+</h2>
                     </div>
                     <hr className="border-[#ffffff20]" />
-                    <p className="text-white text-lg">Higher Transactions</p>
+                    <p className="text-white text-lg">Customers</p>
                   </CardContent>
                 </Card>
               </div>

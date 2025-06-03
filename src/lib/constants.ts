@@ -143,3 +143,19 @@ export const FAQS_CONTENT = [
 
 export const GLOBAFIN_MICROFINANCE_EMAIL = "customer@globafinmicrofinance.com";
 export const GLOBAFIN_MICROFINANCE_PHONE = "+233 57 769 9963";
+
+export const COOKIE_NAMES = {
+  UserLocation: "___gbf_user_location__",
+  UserSession: "___gbf_user_session__",
+};
+
+export enum LogEvents {
+  VisitLandingPage = "visit_landing_page",
+}
+
+export const PATHS = {
+  index: "/",
+  services: "#services",
+  about: "#about",
+  contact: "#contact",
+};
