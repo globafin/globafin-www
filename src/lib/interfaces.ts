@@ -1,3 +1,5 @@
+import { FieldValue } from "firebase/firestore";
+
 export interface UseIPResponse {
   asn?: string;
   city?: string;
@@ -26,4 +28,24 @@ export interface UseIPResponse {
   timezone?: string;
   utc_offset?: string;
   version?: string;
+}
+
+export interface PageData {
+  path: string;
+  views: number;
+  last_visited: string;
+}
+
+export interface SessionData {
+  ip_meta: UseIPResponse;
+  device: {
+    type: string;
+    browser: string;
+  };
+  user_meta: {
+    sessionID: string;
+  };
+  created_at: FieldValue;
+  recent_activity: FieldValue;
+  pages_visited: PageData[];
 }

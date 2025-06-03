@@ -4,6 +4,7 @@ import useIP from "@/hooks/use-ip";
 import { db } from "@/lib/config/firebase";
 import { siteConfig } from "@/lib/config/metadata";
 import { COOKIE_NAMES, LogEvents, PATHS } from "@/lib/constants";
+import { PageData, SessionData } from "@/lib/interfaces";
 import { generateID } from "@/lib/utils";
 import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import Cookies from "js-cookie";
@@ -12,26 +13,6 @@ import { JSX, ReactNode, useEffect } from "react";
 import { UAParser } from "ua-parser-js";
 
 const parser = new UAParser();
-
-interface PageData {
-  path: string;
-  views: number;
-  last_visited: string;
-}
-
-interface SessionData {
-  ip_meta: any;
-  device: {
-    type: any;
-    browser: any;
-  };
-  user_meta: {
-    sessionID: string;
-  };
-  created_at: any;
-  recent_activity: any;
-  pages_visited: PageData[];
-}
 
 export default function MainLayout({ children }: { children: ReactNode }): JSX.Element {
   const pathname = usePathname();
@@ -88,8 +69,8 @@ export default function MainLayout({ children }: { children: ReactNode }): JSX.E
         const sessionData: SessionData = {
           ip_meta: location ? JSON.parse(location) : ipResponse,
           device: {
-            type: osInfo.name,
-            browser: browserInfo.name,
+            type: osInfo.name ?? "N/A",
+            browser: browserInfo.name ?? "N/A",
           },
           user_meta: {
             sessionID,
