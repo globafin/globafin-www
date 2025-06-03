@@ -69,7 +69,7 @@ export default function MainLayout({ children }: { children: ReactNode }): JSX.E
     try {
       const docRef = doc(db, `analytics/site_sessions/sessions/${sessionID}`);
       const docSnapshot = await getDoc(docRef);
-      const location = localStorage.getItem(COOKIE_NAMES.UserLocation);
+      const location = Cookies.get(COOKIE_NAMES.UserLocation);
       const pageData = getPageData();
 
       if (docSnapshot.exists()) {
@@ -88,8 +88,8 @@ export default function MainLayout({ children }: { children: ReactNode }): JSX.E
         const sessionData: SessionData = {
           ip_meta: location ? JSON.parse(location) : ipResponse,
           device: {
-            type: osInfo,
-            browser: browserInfo,
+            type: osInfo.name,
+            browser: browserInfo.name,
           },
           user_meta: {
             sessionID,
@@ -130,7 +130,7 @@ export default function MainLayout({ children }: { children: ReactNode }): JSX.E
   };
 
   const setLocationData = async (): Promise<void> => {
-    if (!localStorage.getItem(COOKIE_NAMES.UserLocation)) {
+    if (!Cookies.get(COOKIE_NAMES.UserLocation)) {
       try {
         await fetchLocation();
       } catch (error) {

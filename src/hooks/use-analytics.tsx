@@ -3,7 +3,7 @@
 import { app } from "@/lib/config/firebase";
 import type { Analytics, EventParams } from "firebase/analytics";
 import { getAnalytics, logEvent } from "firebase/analytics";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface UseAnalytics {
   createLog: (log: string, eventParams?: EventParams) => void;
@@ -13,21 +13,33 @@ interface UseAnalytics {
 export default function useAnalytics(): UseAnalytics {
   const [analytics, setAnalytics] = useState<Analytics>();
 
-  function createLog(log: string, eventParams?: EventParams): void {
+  useEffect(() => {
+    // Initialize analytics only once when the component mounts
     try {
-      if (!window) return;
-      const firebaseAnalytics: Analytics = getAnalytics(app);
+      const firebaseAnalytics = getAnalytics(app);
       setAnalytics(firebaseAnalytics);
-      logEvent(firebaseAnalytics, log, { ...eventParams });
+    } catch (error) {
+      console.error("Failed to initialize Firebase Analytics:", error);
+    }
+  }, []);
+
+  function createLog(log: string, eventParams?: EventParams): void {
+    if (!analytics) {
+      console.warn("Analytics not initialized. Skipping log:", log);
+      return;
+    }
+
+    try {
+      logEvent(analytics, log, eventParams);
+
       if (process.env.NODE_ENV === "development") {
-        console.log(
-          `🪵 Log event created for ${log} with event params ${
-            JSON.stringify(eventParams) || "none"
-          }`
+        console.debug(
+          `[Analytics] Event: ${log}`,
+          eventParams ? `Params: ${JSON.stringify(eventParams)}` : ""
         );
       }
     } catch (error) {
-      throw new Error("an error occured mounting analytics");
+      console.error(`Failed to log analytics event "${log}":`, error);
     }
   }
 

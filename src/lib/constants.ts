@@ -159,3 +159,9 @@ export const PATHS = {
   about: "#about",
   contact: "#contact",
 };
+
+export const COOKIE_OPTIONS = {
+  sameSite: "strict" as const,
+  secure: true,
+  expires: 365, // 1 year
+} as const;
