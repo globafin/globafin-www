@@ -40,19 +40,19 @@ export const SERVICES = [
 export const ROUTES = [
   {
     label: "Home",
-    href: "#home",
+    href: "/#home",
   },
   {
     label: "Services",
-    href: "#services",
+    href: "/#services",
   },
   {
     label: "About",
-    href: "#about",
+    href: "/#about",
   },
   {
     label: "Contact",
-    href: "#contact",
+    href: "/#contact",
   },
 ];
 

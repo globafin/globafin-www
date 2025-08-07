@@ -44,7 +44,7 @@ const Hero = () => {
                         width={40}
                         height={40}
                       />
-                      <h2 className="text-3xl font-black">11+</h2>
+                      <h2 className="text-3xl font-black">14+</h2>
                     </div>
                     <hr className="border-[#ffffff20]" />
                     <p className="text-white text-lg">years</p>
