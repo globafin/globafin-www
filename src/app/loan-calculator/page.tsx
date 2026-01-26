@@ -422,7 +422,7 @@ export default function LoanCalculatorPage() {
                                     <CardContent>
                                         {results.type === "PremiumShield" && (
                                             <div className="mt-2 text-sm bg-white/10 p-2 px-3 rounded inline-block">
-                                                First Month: <span className="font-bold">{formatMoney(results.repayment.first)}</span>
+                                                Initial Deposit: <span className="font-bold">{formatMoney(results.repayment.first)}</span>
                                             </div>
                                         )}
                                         <div className="mt-8 pt-6 border-t border-primary-foreground/20 grid grid-cols-2 gap-4">
