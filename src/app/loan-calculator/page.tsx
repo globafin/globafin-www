@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 import WidthConstraint from "@/components/ui/width-constraint";
 import {
     Card,
@@ -53,6 +54,7 @@ type CalculationResult =
             rateUsed: number;
             feeUsed: number;
             isMotorPolicy: boolean;
+            minDeposit?: number;
         };
     };
 
@@ -62,6 +64,7 @@ export default function LoanCalculatorPage() {
     const [amount, setAmount] = useState<number | "">("");
     const [tenure, setTenure] = useState<number | "">(1);
     const [isCustomTenure, setIsCustomTenure] = useState(false);
+    const [userDeposit, setUserDeposit] = useState<number | "">("");
 
     // --- Constants & Logic ---
 
@@ -118,42 +121,81 @@ export default function LoanCalculatorPage() {
             };
         } else {
             // PremiumShield logic
+            // See LOAN_CALCULATION.md for the exact formulas
+
             const { rate, fee } = getPremiumShieldRates(principal);
+            const r_proc = fee;
+            const r_mo = rate;
 
-            const processingFee = principal * fee;
-            const totalInterest = principal * rate * months;
+            // Symbols from spec
+            const P = principal;
+            const N = months;
+            const S = isMotorPolicy ? 52 : 0;
+            const D_user = typeof userDeposit === "number" ? userDeposit : 0;
 
-            // Motor Policy Sticker Fee logic (Only if PremiumShield + Checked)
-            const stickerFee = isMotorPolicy ? 52 : 0;
+            // Step 1: Calculate Minimum Required Deposit
+            // I_1 = P / N
+            const I_1 = P / N;
 
-            const totalFees = processingFee + stickerFee;
-            const totalRepayment = principal + totalInterest + totalFees;
+            // F_proc_init = P * r_proc
+            const F_proc_init = P * r_proc;
 
-            const baseMonthly = (principal + totalInterest) / months;
-            const firstInstalment = baseMonthly + processingFee + stickerFee;
+            // L_init = P - I_1 - S
+            const L_init = P - I_1 - S;
+
+            // F_proc = L_init * r_proc (Actual processing fee)
+            const F_proc = L_init * r_proc;
+
+            // Delta_fee = F_proc_init - F_proc
+            const delta_fee = F_proc_init - F_proc;
+
+            // D_min = I_1 + S + Delta_fee
+            const D_min = I_1 + S + delta_fee;
+
+            // Step 2: Determine Actual First Instalment
+            // D_actual = max(D_min, D_user)
+            const D_actual = Math.max(D_min, D_user);
+
+            // Step 3: Determine Financed Amount
+            // L_financed = P - D_actual
+            const L_financed = P - D_actual;
+
+            // Step 4: Repayment Schedule
+            // R_total = r_mo * N
+            const R_total = r_mo * N;
+
+            // V_int = L_financed * R_total
+            const V_int = L_financed * R_total;
+
+            // T_repay = L_financed + V_int
+            const T_repay = L_financed + V_int;
+
+            // I_reg = T_repay / N
+            const I_reg = T_repay / N;
 
             return {
                 type: "PremiumShield",
                 principal,
-                totalInterest,
+                totalInterest: V_int,
                 fees: {
-                    processing: processingFee,
-                    sticker: stickerFee > 0 ? stickerFee : undefined,
-                    total: totalFees,
+                    processing: F_proc,
+                    sticker: S > 0 ? S : undefined,
+                    total: F_proc + S,
                 },
                 repayment: {
-                    total: totalRepayment,
-                    monthlyBase: baseMonthly,
-                    first: firstInstalment,
+                    total: T_repay, // Repayment over the tenure
+                    monthlyBase: I_reg,
+                    first: D_actual, // The initial deposit
                 },
                 meta: {
-                    rateUsed: rate,
-                    feeUsed: fee,
+                    rateUsed: r_mo,
+                    feeUsed: r_proc,
                     isMotorPolicy: isMotorPolicy,
+                    minDeposit: D_min,
                 },
             };
         }
-    }, [loanType, amount, tenure, isMotorPolicy]);
+    }, [loanType, amount, tenure, isMotorPolicy, userDeposit]);
 
     const currencyFormatter = new Intl.NumberFormat("en-GH", {
         style: "currency",
@@ -163,10 +205,10 @@ export default function LoanCalculatorPage() {
     const formatMoney = (val: number) => currencyFormatter.format(val);
 
     return (
-        <div className="bg-background-secondary min-h-screen pt-28 pb-10 lg:pt-[120px]">
+        <div className="bg-background-secondary min-h-screen pt-28 pb-80 lg:pt-[120px] lg:pb-40">
             <WidthConstraint>
                 <div className="flex flex-col gap-4 mb-8 text-center">
-                    <h1 className="text-4xl font-bold tracking-tight text-primary">Loan Calculator</h1>
+                    <h1 className="text-3xl font-bold tracking-tight text-primary">Loan Calculator</h1>
                     <p className="text-muted-foreground text-lg">
                         Estimate your monthly repayments and view a breakdown of fees.
                     </p>
@@ -241,10 +283,45 @@ export default function LoanCalculatorPage() {
                                         type="number"
                                         placeholder="e.g. 5000"
                                         value={amount}
-                                        onChange={(e) => setAmount(Number(e.target.value))}
-                                        className="h-12 text-lg rounded-lg"
+                                        onChange={(e) => setAmount(e.target.value === "" ? "" : Number(e.target.value))}
+                                        className="h-12 text-base rounded-lg"
                                     />
                                 </div>
+
+                                {/* User Initial Deposit (PremiumShield Only) */}
+                                {loanType === "PremiumShield" && (
+                                    <div className="space-y-2 pt-2">
+                                        <div className="flex justify-between items-center">
+                                            <label htmlFor="userDeposit" className="text-sm font-medium leading-none">
+                                                Initial Deposit (Optional)
+                                            </label>
+                                            {results?.type === "PremiumShield" && results.meta.minDeposit && (
+                                                <span className="text-xs text-primary font-medium bg-primary/10 px-2 py-1 rounded">
+                                                    Min Required: {formatMoney(results.meta.minDeposit)}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <Input
+                                            id="userDeposit"
+                                            type="number"
+                                            placeholder={results?.type === "PremiumShield" && results.meta.minDeposit ? `Min: ${results.meta.minDeposit.toFixed(2)}` : "e.g. 1000"}
+                                            min={(results?.type === "PremiumShield" && results.meta.minDeposit) || 0}
+                                            value={userDeposit}
+                                            onChange={(e) => setUserDeposit(e.target.value === "" ? "" : Number(e.target.value))}
+                                            onBlur={() => {
+                                                if (results?.type === "PremiumShield" && results.meta.minDeposit && (userDeposit === "" || (typeof userDeposit === "number" && userDeposit < results.meta.minDeposit))) {
+                                                    setUserDeposit(results.meta.minDeposit);
+                                                }
+                                            }}
+                                            className="h-12 text-base rounded-lg"
+                                        />
+                                        <p className="text-xs text-muted-foreground">
+                                            Increase your initial deposit to lower your monthly payments.
+                                        </p>
+                                    </div>
+                                )}
+
+
 
                                 {/* Tenure Input - Custom Selector with Manual Mode */}
                                 <div className="space-y-2">
@@ -253,7 +330,7 @@ export default function LoanCalculatorPage() {
                                     </label>
 
                                     {!isCustomTenure ? (
-                                        <div className="grid grid-cols-4 gap-2">
+                                        <div className="grid grid-cols-4 gap-2 mt-1">
                                             {[1, 2, 3, 4, 5, 6, 9, 12, 18, 24, 36, 48].map((m) => (
                                                 <Button
                                                     key={m}
@@ -281,8 +358,8 @@ export default function LoanCalculatorPage() {
                                                 type="number"
                                                 placeholder="Enter months..."
                                                 value={tenure}
-                                                onChange={(e) => setTenure(Number(e.target.value))}
-                                                className="h-12 text-lg"
+                                                onChange={(e) => setTenure(e.target.value === "" ? "" : Number(e.target.value))}
+                                                className="h-12 text-base"
                                                 autoFocus
                                             />
                                             <Button
@@ -296,6 +373,8 @@ export default function LoanCalculatorPage() {
                                     )}
                                 </div>
                             </CardContent>
+
+
                         </Card>
 
                         {/* Loan Definitions Card - Desktop Only */}
@@ -332,7 +411,7 @@ export default function LoanCalculatorPage() {
                                     <div className="absolute top-0 right-0 p-32 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
                                     <CardHeader className="pb-2">
                                         <CardDescription className="text-primary-foreground/80">Estimated Monthly Payment</CardDescription>
-                                        <CardTitle className="text-5xl font-bold">
+                                        <CardTitle className="text-4xl font-bold">
                                             {results.type === "CAGD"
                                                 ? formatMoney(results.repayment.monthly)
                                                 : formatMoney(results.repayment.monthlyBase)
@@ -349,11 +428,11 @@ export default function LoanCalculatorPage() {
                                         <div className="mt-8 pt-6 border-t border-primary-foreground/20 grid grid-cols-2 gap-4">
                                             <div>
                                                 <p className="text-sm opacity-70">Total Repayment</p>
-                                                <p className="text-2xl font-bold">{formatMoney(results.repayment.total)}</p>
+                                                <p className="text-xl font-bold">{formatMoney(results.repayment.total)}</p>
                                             </div>
                                             <div>
                                                 <p className="text-sm opacity-70">Total Interest</p>
-                                                <p className="text-xl font-semibold">{formatMoney(results.totalInterest)}</p>
+                                                <p className="text-lg font-semibold">{formatMoney(results.totalInterest)}</p>
                                             </div>
                                         </div>
                                     </CardContent>
@@ -395,14 +474,12 @@ export default function LoanCalculatorPage() {
                                                     </span>
                                                     <span>{formatMoney(results.fees.processing)}</span>
                                                 </div>
-                                                {results.fees.sticker && (
-                                                    <div className="flex justify-between items-center py-2 border-b border-dashed border-border">
-                                                        <span className="text-muted-foreground">
-                                                            Sticker Fee
-                                                        </span>
-                                                        <span>{formatMoney(results.fees.sticker)}</span>
-                                                    </div>
-                                                )}
+                                                <div className="flex justify-between items-center py-2 border-b border-dashed border-border">
+                                                    <span className="text-muted-foreground">
+                                                        Sticker Fee
+                                                    </span>
+                                                    <span>{formatMoney(results.fees.sticker || 0)}</span>
+                                                </div>
                                                 <div className="flex justify-between items-center py-2 border-b border-dashed border-border">
                                                     <span className="text-muted-foreground">
                                                         Interest Rate Applied
@@ -422,8 +499,14 @@ export default function LoanCalculatorPage() {
                             </div>
                         ) : (
                             <div className="h-full flex flex-col items-center justify-center p-10 text-center text-muted-foreground border-2 border-dashed border-border rounded-xl min-h-[400px]">
-                                <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
-                                    <span className="text-2xl">🧮</span>
+                                <div className="w-24 h-24 bg-muted/50 rounded-full flex items-center justify-center mb-4 p-5">
+                                    <Image
+                                        src="/assets/logo.svg"
+                                        alt="Globafin Logo"
+                                        width={64}
+                                        height={64}
+                                        className="w-full h-full object-contain"
+                                    />
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2">Ready to Calculate</h3>
                             </div>
@@ -450,11 +533,14 @@ export default function LoanCalculatorPage() {
                                     </div>
                                 </CardContent>
                             </Card>
+
+                            {/* Explicit extra spacer for mobile to prevent footer overlap if padding fails */}
+                            <div className="h-20 w-full" aria-hidden="true" />
                         </div>
                     </div>
                 </div>
-            </WidthConstraint>
-        </div>
+            </WidthConstraint >
+        </div >
     );
 
 }
