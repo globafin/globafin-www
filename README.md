@@ -84,4 +84,4 @@ For detailed information on the business logic powering the financial tools, ref
 
 ---
 
-© 2024 GlobaFin. All rights reserved.
+© 2026 GlobaFin. All rights reserved.
