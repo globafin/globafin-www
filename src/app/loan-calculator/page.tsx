@@ -169,7 +169,7 @@ export default function LoanCalculatorPage() {
     const formatMoney = (val: number) => currencyFormatter.format(val);
 
     return (
-        <div className="bg-background-secondary min-h-screen py-10 lg:pt-[120px]">
+        <div className="bg-background-secondary min-h-screen pt-28 pb-10 lg:pt-[120px]">
             <WidthConstraint>
                 <div className="flex flex-col gap-4 mb-8 text-center">
                     <h1 className="text-4xl font-bold tracking-tight text-primary">Loan Calculator</h1>

@@ -1,5 +1,6 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import ScrollToTop from "@/components/ui/scroll-to-top";
 import MainLayout from "@/layouts/main.layout";
 import { Analytics } from "@vercel/analytics/next";
 import { Inter } from "next/font/google";
@@ -24,6 +25,7 @@ export default function RootLayout({
           <Toaster />
           {children}
           <Footer />
+          <ScrollToTop />
         </MainLayout>
       </body>
     </html>
