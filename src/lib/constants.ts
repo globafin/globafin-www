@@ -47,6 +47,10 @@ export const ROUTES = [
     href: "/#services",
   },
   {
+    label: "Loan Calculator",
+    href: "/loan-calculator",
+  },
+  {
     label: "About",
     href: "/#about",
   },
