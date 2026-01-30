@@ -276,7 +276,7 @@ export default function LoanCalculatorPage() {
                                 {/* Amount Input */}
                                 <div className="space-y-2">
                                     <label htmlFor="amount" className="text-sm font-medium leading-none">
-                                        Loan Amount (GHS)
+                                        Premium Amount (GHS)
                                     </label>
                                     <Input
                                         id="amount"
