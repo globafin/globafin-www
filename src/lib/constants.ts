@@ -37,7 +37,13 @@ export const SERVICES = [
   },
 ];
 
-export const ROUTES = [
+export type RouteItem = {
+  label: string;
+  href?: string;
+  children?: { label: string; href: string; description?: string }[];
+};
+
+export const ROUTES: RouteItem[] = [
   {
     label: "Home",
     href: "/#home",
@@ -47,8 +53,19 @@ export const ROUTES = [
     href: "/#services",
   },
   {
-    label: "Loan Calculator",
-    href: "/loan-calculator",
+    label: "Calculators",
+    children: [
+      {
+        label: "Loan Calculator",
+        href: "/loan-calculator",
+        description: "Calculate CAGD and PremiumShield loans",
+      },
+      {
+        label: "PremiumShield",
+        href: "/premiumshieldcalc",
+        description: "Insurance premium financing calculator",
+      },
+    ],
   },
   {
     label: "About",
