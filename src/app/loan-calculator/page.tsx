@@ -212,6 +212,10 @@ export default function LoanCalculatorPage() {
                     <p className="text-muted-foreground text-lg">
                         Estimate your monthly repayments and view a breakdown of fees.
                     </p>
+                    {/* Disclaimer Added */}
+                    <p className="text-xs text-muted-foreground/80 max-w-2xl mx-auto">
+                        Disclaimer: The figures provided by this calculator are estimates only and are subject to change based on final approval and verification. Rate and fees are subject to change.
+                    </p>
                 </div>
 
                 <div className="grid lg:grid-cols-12 gap-8">
@@ -425,23 +429,35 @@ export default function LoanCalculatorPage() {
                                                 Initial Deposit: <span className="font-bold">{formatMoney(results.repayment.first)}</span>
                                             </div>
                                         )}
-                                        <div className="mt-8 pt-6 border-t border-primary-foreground/20 grid grid-cols-2 gap-4">
-                                            <div>
-                                                <p className="text-sm opacity-70">Total Repayment</p>
-                                                <p className="text-xl font-bold">{formatMoney(results.repayment.total)}</p>
+                                        {/* Total Repayment and Interest hidden for all loan types as per request */}
+                                        {/* {results.type !== "CAGD" && (
+                                            <div className="mt-8 pt-6 border-t border-primary-foreground/20 grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <p className="text-sm opacity-70">Total Repayment</p>
+                                                    <p className="text-xl font-bold">{formatMoney(results.repayment.total)}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm opacity-70">Total Interest</p>
+                                                    <p className="text-lg font-semibold">{formatMoney(results.totalInterest)}</p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <p className="text-sm opacity-70">Total Interest</p>
-                                                <p className="text-lg font-semibold">{formatMoney(results.totalInterest)}</p>
+                                        )} */}
+
+                                        {/* Add Note for CAGD Only */}
+                                        {results.type === "CAGD" && (
+                                            <div className="mt-6 pt-4 border-t border-primary-foreground/20">
+                                                <p className="text-xs text-primary-foreground/90 italic">
+                                                    Please Note: Your loan repayment may not exceed 50% of your monthly income.
+                                                </p>
                                             </div>
-                                        </div>
+                                        )}
                                     </CardContent>
                                 </Card>
 
                                 {/* Breakdown Details */}
                                 <Card>
                                     <CardHeader>
-                                        <CardTitle>Fee Breakdown</CardTitle>
+                                        <CardTitle>Details</CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-4">
                                         <div className="flex justify-between items-center py-2 border-b border-dashed border-border">
@@ -449,22 +465,12 @@ export default function LoanCalculatorPage() {
                                             <span className="font-semibold">{formatMoney(results.principal)}</span>
                                         </div>
 
-                                        {results.type === "CAGD" && (
-                                            <>
-                                                <div className="flex justify-between items-center py-2 border-b border-dashed border-border">
-                                                    <span className="text-muted-foreground">Insurance Fee ({(CAGD_INSURANCE_RATE * 100).toFixed(1)}%)</span>
-                                                    <span>{formatMoney(results.fees.insurance)}</span>
-                                                </div>
-                                                <div className="flex justify-between items-center py-2 border-b border-dashed border-border">
-                                                    <span className="text-muted-foreground">Processing Fee ({(CAGD_PROCESSING_RATE * 100).toFixed(1)}%)</span>
-                                                    <span>{formatMoney(results.fees.processing)}</span>
-                                                </div>
-                                                <div className="flex justify-between items-center py-2 border-b border-dashed border-border">
-                                                    <span className="text-muted-foreground">CAGD Service Fee</span>
-                                                    <span>{formatMoney(results.fees.cagd)}</span>
-                                                </div>
-                                            </>
-                                        )}
+                                        {/* 
+                                            For CAGD, user requested to ONLY show Principal Amount in breakdown.
+                                            So we purposefully omit the breakdown of Insurance, Processing, and CAGD Fee here 
+                                            if type is CAGD, effectively hiding them.
+                                        */}
+                                        {results.type === "CAGD" && null}
 
                                         {results.type === "PremiumShield" && (
                                             <>
@@ -489,10 +495,13 @@ export default function LoanCalculatorPage() {
                                             </>
                                         )}
 
-                                        <div className="flex justify-between items-center pt-2">
-                                            <span className="font-bold text-foreground">Total Fees</span>
-                                            <span className="font-bold">{formatMoney(results.fees.total)}</span>
-                                        </div>
+                                        {/* Only show Total Fees for PremiumShield or if specifically needed later. Hidden for CAGD as per request. */}
+                                        {results.type !== "CAGD" && (
+                                            <div className="flex justify-between items-center pt-2">
+                                                <span className="font-bold text-foreground">Total Fees</span>
+                                                <span className="font-bold">{formatMoney(results.fees.total)}</span>
+                                            </div>
+                                        )}
                                     </CardContent>
                                 </Card>
 

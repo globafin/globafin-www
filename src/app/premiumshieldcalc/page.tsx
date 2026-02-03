@@ -151,6 +151,10 @@ export default function PremiumShieldCalculatorPage() {
                     <p className="text-muted-foreground text-lg">
                         Estimate your monthly insurance premium repayments and view a breakdown of fees.
                     </p>
+                    {/* Disclaimer Added */}
+                    <p className="text-xs text-muted-foreground/80 max-w-2xl mx-auto">
+                        Disclaimer: The figures provided by this calculator are estimates only and are subject to change based on final approval and verification. Rate and fees are subject to change.
+                    </p>
                 </div>
 
                 <div className="grid lg:grid-cols-12 gap-8">
@@ -325,7 +329,8 @@ export default function PremiumShieldCalculatorPage() {
                                         <div className="mt-2 text-sm bg-white/10 p-2 px-3 rounded inline-block">
                                             Initial Deposit: <span className="font-bold">{formatMoney(results.repayment.first)}</span>
                                         </div>
-                                        <div className="mt-8 pt-6 border-t border-primary-foreground/20 grid grid-cols-2 gap-4">
+                                        {/* Total Repayment and Interest hidden as per request */}
+                                        {/* <div className="mt-8 pt-6 border-t border-primary-foreground/20 grid grid-cols-2 gap-4">
                                             <div>
                                                 <p className="text-sm opacity-70">Total Repayment</p>
                                                 <p className="text-xl font-bold">{formatMoney(results.repayment.total)}</p>
@@ -334,14 +339,14 @@ export default function PremiumShieldCalculatorPage() {
                                                 <p className="text-sm opacity-70">Total Interest</p>
                                                 <p className="text-lg font-semibold">{formatMoney(results.totalInterest)}</p>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </CardContent>
                                 </Card>
 
                                 {/* Breakdown Details */}
                                 <Card>
                                     <CardHeader>
-                                        <CardTitle>Fee Breakdown</CardTitle>
+                                        <CardTitle>Details</CardTitle>
                                     </CardHeader>
                                     <CardContent className="space-y-4">
                                         <div className="flex justify-between items-center py-2 border-b border-dashed border-border">
