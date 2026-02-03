@@ -50,9 +50,9 @@ export default function PremiumShieldCalculatorPage() {
         if (amt >= 5001) return { rate: 0.025, fee: 0.02 };
         if (amt >= 2001) return { rate: 0.03, fee: 0.02 };
         if (amt >= 531) return { rate: 0.035, fee: 0.02 };
-        if (amt === 530) return { rate: 0.04, fee: 0.04 };
+        if (amt <= 530) return { rate: 0.04, fee: 0.02 }; // Updated fee to 0.02 based on table
         // Default fallback
-        return { rate: 0.04, fee: 0.04 };
+        return { rate: 0.04, fee: 0.02 };
     };
 
     const results: CalculationResult | null = useMemo(() => {
@@ -78,35 +78,27 @@ export default function PremiumShieldCalculatorPage() {
         // I_1 = P / N
         const I_1 = P / N;
 
-        // F_proc_init = P * r_proc
+        // F_proc_init = P * r_proc (Processing fee on Total Premium)
         const F_proc_init = P * r_proc;
 
-        // L_init = P - I_1 - S
-        const L_init = P - I_1 - S;
+        // D_min = I_1 + S + F_proc_init (Safe Net)
+        const D_min = I_1 + S + F_proc_init;
 
-        // F_proc = L_init * r_proc (Actual processing fee)
-        const F_proc = L_init * r_proc;
-
-        // Delta_fee = F_proc_init - F_proc
-        const delta_fee = F_proc_init - F_proc;
-
-        // D_min = I_1 + S + Delta_fee
-        const D_min = I_1 + S + delta_fee;
-
-        // Step 2: Determine Actual First Instalment
-        // D_actual = max(D_min, D_user)
+        // Step 2: Determine Actual First Instalment (Initial Deposit)
+        // D_actual = Math.max(D_min, D_user)
         const D_actual = Math.max(D_min, D_user);
 
-        // Step 3: Determine Financed Amount
+        // Step 3: Determine Financed Amount (Actual Loan Amount)
         // L_financed = P - D_actual
         const L_financed = P - D_actual;
 
-        // Step 4: Repayment Schedule
-        // R_total = r_mo * N
-        const R_total = r_mo * N;
+        // Step 4: Calculate Actual Fees and Interest based on Financed Amount
 
-        // V_int = L_financed * R_total
-        const V_int = L_financed * R_total;
+        // F_proc = L_financed * r_proc (Actual processing fee on financed amount)
+        const F_proc = L_financed * r_proc;
+
+        // V_int = L_financed * r_mo * N (Interest on financed amount)
+        const V_int = L_financed * r_mo * N;
 
         // T_repay = L_financed + V_int
         const T_repay = L_financed + V_int;
